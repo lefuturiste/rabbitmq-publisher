@@ -1,6 +1,6 @@
 <?php
 
-namespace RabbitMQPublisher;
+namespace Lefuturiste\RabbitMQPublisher;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
