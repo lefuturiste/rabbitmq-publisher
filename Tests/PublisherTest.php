@@ -27,7 +27,7 @@ class PublisherTest extends TestCase {
 			],
 			'from' => 'Example from name',
 			'isHTML' => true
-		], 'example');
+		], 'example_event');
 
 		$this->assertEquals(true, $response);
 	}

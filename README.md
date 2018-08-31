@@ -9,16 +9,17 @@ This is a helper for Publish a rabbit mq message.
 ## Usage
 
 ```php
-$rabbitmqClient = new RabbitMQPublisher\Client(
-    new AMQPStreamConnection('example.com', '424242', 'user', 'password', 'virtual host')
+$rabbitmqClient = new Lefuturiste\RabbitMQPublisher\Client(
+    new AMQPStreamConnection('example.com', '424242', 'user', 'password', 'virtual_host')
 );
 //you can use array as message body
-$rabbitmqClient->publish('Hello world', 'my_queue');
+//body is json encoded
+$rabbitmqClient->publish('Hello world', 'my_event');
 ```
 
 ## Tests
 
-``vendor/bin/phpunit Tests/`` 
+``vendor/bin/phpunit Tests/``
 
 
 Enjoy!
