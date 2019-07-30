@@ -2,18 +2,35 @@
 
 namespace RabbitMQPublisher;
 
+use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
 class Client
 {
-	/**
+    /**
+     * @var string
+     */
+    private $type = 'direct';
+
+    /**
+     * @var string
+     */
+    private $exchange = 'amq.direct';
+
+    /**
 	 * @var AMQPStreamConnection
 	 */
 	public $connexion;
-	private $type = 'direct';
-	private $exchange = 'amq.direct';
+
+    /**
+     * @var AMQPChannel
+     */
 	private $channel;
+
+    /**
+     * @var string
+     */
 	private $queue;
 
 	public function __construct(AMQPStreamConnection $connexion, $queue = 'default')
@@ -22,14 +39,13 @@ class Client
 		$this->queue = $queue;
 	}
 
-	/**
-	 * Publish a message with a specific event in the default queue
-	 *
-	 * @param mixed $body
-	 * @param string $queue
-	 *
-	 * @return boolean
-	 */
+    /**
+     * Publish a message with a specific event in the default queue
+     *
+     * @param mixed $body
+     * @param string $event
+     * @return boolean
+     */
 	public function publish($body, string $event)
 	{
 	    $queue = $this->queue;
@@ -38,7 +54,10 @@ class Client
 		$this->channel->exchange_declare($this->exchange, $this->type, false, true, false);
 		$this->channel->queue_bind($queue, $this->exchange);
 		$message = new AMQPMessage(
-			json_encode(['event' => $event, 'body' => $body]),
+			json_encode([
+			    'event' => $event,
+                'body' => $body
+            ]),
 			[
 				'content_type' => 'application/json',
 				'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
@@ -50,10 +69,7 @@ class Client
 		return true;
 	}
 
-	/**
-	 *
-	 */
-	private function shutdown()
+	private function shutdown(): void
 	{
 		$this->channel->close();
 		$this->connexion->close();
