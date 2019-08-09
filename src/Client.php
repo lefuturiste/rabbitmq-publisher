@@ -100,7 +100,8 @@ class Client
                 $this->host,
                 $this->port,
                 $this->user,
-                $this->password
+                $this->password,
+                $this->virtualHost
             );
             return true;
         } catch (\Exception $e) {
