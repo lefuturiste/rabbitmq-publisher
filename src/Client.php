@@ -133,7 +133,7 @@ class Client
             return true;
         }
 
-        if (!$this->connect()) {
+        if (!$this->hasConnexion() && !$this->connect()) {
             return false;
         }
         $this->channel = $this->connexion->channel();
