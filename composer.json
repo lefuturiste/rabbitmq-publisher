@@ -19,10 +19,10 @@
   },
   "require": {
     "php-amqplib/php-amqplib": "^2.7",
-    "ext-json": "*",
-    "vlucas/phpdotenv": "^3.4"
+    "ext-json": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^6.4"
+    "phpunit/phpunit": "^6.4",
+    "vlucas/phpdotenv": "^3.4"
   }
 }
